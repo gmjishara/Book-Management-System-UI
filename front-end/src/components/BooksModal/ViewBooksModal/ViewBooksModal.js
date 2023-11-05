@@ -13,12 +13,12 @@ export default function ViewBooksModal({ show, setShow, item}) {
         title="View Books"
       >
         <div className="viewBook">
-          <h5>Book Name:{item.title}</h5>
-          <h5>Author:{item.body}</h5>
-          <h5>ISBN:</h5>
-          <h5>Published Year:</h5>
-          <h5>Quantity:</h5>
-          <h5>Price:</h5>
+          <h5>Book Name: <span>{item.title}</span></h5>
+          <h5>Author: <span>{item.author}</span></h5>
+          <h5>ISBN: <span>{item.isbn}</span></h5>
+          <h5>Published Year: <span>{item.year}</span></h5>
+          <h5>Quantity: <span>{item.quantity}</span></h5>
+          <h5>Price: <span>{item.price}</span></h5>
         </div>
         <div className="viewCloseBtn">
           <Button variant="secondary" onClick={() => setShow(false)}>
