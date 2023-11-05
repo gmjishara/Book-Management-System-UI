@@ -1,0 +1,9 @@
+.app{
+  height: 100vh;
+  background-color: #dfe3ee;
+}
+
+.app h1{
+  text-align: center;
+  padding:25px 0 100px 0;
+}

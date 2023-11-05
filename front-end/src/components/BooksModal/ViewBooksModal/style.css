@@ -1,0 +1,9 @@
+.viewBook h5{
+    margin-bottom: 15px;
+}
+
+.viewCloseBtn{
+    margin-top: 25px;
+    display: flex; 
+    justify-content: flex-end; 
+}

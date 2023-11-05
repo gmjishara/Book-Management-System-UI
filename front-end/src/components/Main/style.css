@@ -1,0 +1,43 @@
+.mainDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.bookTableContainer {
+  width: 75%;
+  min-height: 300px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 15px;
+}
+
+.btn {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+}
+
+.addBooks {
+  width: 75%;
+  display: flex;
+  justify-content: right;
+  padding-right: 20px;
+}
+
+.tableBody td,
+thead th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.tableBody .btn {
+  margin: 0 auto;
+}
+
+.tableBody td svg {
+  cursor: pointer;
+}
