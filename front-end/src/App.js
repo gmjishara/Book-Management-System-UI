@@ -1,11 +1,11 @@
-import './App.css';
-import Main from './components/Main/Main';
+import "./App.css";
+import Main from "./components/Main/Main";
 
 function App() {
   return (
-    <div className='app'>
+    <div className="app">
       <h1>Books Inventory System</h1>
-      <Main/>
+      <Main />
     </div>
   );
 }

@@ -42,7 +42,7 @@ const booksApi = createApi({
   }),
 });
 
-export default booksApi
+export default booksApi;
 export const {
   useGetAllBooksQuery,
   useGetBookByIdQuery,
