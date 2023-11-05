@@ -3,20 +3,20 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const booksApi = createApi({
   reducerPath: "booksApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://jsonplaceholder.typicode.com/",
+    baseUrl: "https://localhost:7290/api/",
   }),
   endpoints: (builder) => ({
     getAllBooks: builder.query({
-      query: () => "posts",
+      query: () => "Books",
     }),
 
     getBookById: builder.query({
-      query: (id) => `posts/${id}`,
+      query: (id) => `Books/${id}`,
     }),
 
     addBooks: builder.mutation({
       query: (body) => ({
-        url: "posts",
+        url: "Books",
         method: "POST",
         body,
       }),
@@ -26,7 +26,7 @@ const booksApi = createApi({
       query: (data) => {
         const { id, ...body } = data;
         return {
-          url: `posts/${id}`,
+          url: `Books/${id}`,
           method: "PUT",
           body,
         };
@@ -35,7 +35,7 @@ const booksApi = createApi({
 
     deleteBooks: builder.mutation({
       query: (id) => ({
-        url: `posts/${id}`,
+        url: `Books/${id}`,
         method: "DELETE",
       }),
     }),

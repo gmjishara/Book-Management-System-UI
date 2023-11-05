@@ -25,6 +25,8 @@ export default function Main() {
     setUpdate(true);
   };
 
+  console.log(data)
+
   return (
     <div className="mainDiv">
       <div className="addBooks">
@@ -47,11 +49,12 @@ export default function Main() {
           <tbody className="tableBody">
             {data?.map((item) => (
               <tr key={item.userId}>
-                <td>{item.userId}</td>
+                <td>{item.id}</td>
                 <td>{item.title}</td>
-                <td>{item.body}</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+                <td>{item.author}</td>
+                <td>{item.isbn}</td>
+                <td>{item.year}</td>
+               
                 <td>
                   <ViewIcon
                     width={25}

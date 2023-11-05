@@ -7,7 +7,14 @@ import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import booksApi from "./features/api/apiSlice";
 
+// const express=require('express')
+// const app=express()
+// const stytch=require('stytch')
+// const cors=require('cors')
+// app.use(cors())
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <ApiProvider api={booksApi}>
