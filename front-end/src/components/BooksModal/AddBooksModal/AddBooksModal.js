@@ -8,6 +8,7 @@ import {
   useGetAllBooksQuery,
   useUpdateBooksMutation,
 } from "../../../features/api/apiSlice";
+import Swal from "sweetalert2";
 
 export default function AddBooksModal({ show, setShow, update, item }) {
   const { isFetching } = useGetAllBooksQuery();
@@ -34,9 +35,42 @@ export default function AddBooksModal({ show, setShow, update, item }) {
     };
 
     if (update) {
-      await updateBooks({ id: item.id, body: data });
+      Swal.fire({
+        title: "Do you want to Update this Book?",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          updateBooks({ id: item.id, body: data });
+          Swal.fire({
+            position: "top",
+            icon: "success",
+            title: "Book has been updated",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setShow(false);
+        }
+      });
     } else {
-      await addBooks(data);
+      Swal.fire({
+        title: "Do you want to Add Books?",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          addBooks(data);
+          Swal.fire({
+            position: "top",
+            icon: "success",
+            title: "Book has been added",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setShow(false);
+        }
+      });
+      
     }
   };
 
