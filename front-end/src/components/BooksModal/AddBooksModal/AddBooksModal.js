@@ -70,9 +70,20 @@ export default function AddBooksModal({ show, setShow, update, item }) {
           setShow(false);
         }
       });
-      
     }
   };
+
+  const closeButton=()=>{
+    Swal.fire({
+      title: "Do you want to leave without changes?",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setShow(false);
+      }
+    });
+  }
 
   return (
     <div>
@@ -147,7 +158,7 @@ export default function AddBooksModal({ show, setShow, update, item }) {
             />
           </Form.Group>
           <div className="addBookBtn">
-            <Button variant="secondary" onClick={() => setShow(false)}>
+            <Button variant="secondary" onClick={closeButton}>
               Close
             </Button>
             <Button variant="primary" type="submit" disabled={isFetching}>

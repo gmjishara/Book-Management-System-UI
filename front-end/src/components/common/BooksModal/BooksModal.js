@@ -1,10 +1,18 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-import { Button } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 export default function BooksModal({ show, setShow, title, children }) {
   const handleClose = () => {
-    setShow(false);
+    Swal.fire({
+      title: "Do you want to leave without changes?",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setShow(false);
+      }
+    });
   };
   return (
     <Modal show={show} onHide={handleClose}>
