@@ -6,20 +6,18 @@ import reportWebVitals from "./reportWebVitals";
 import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import booksApi from "./features/api/apiSlice";
-
-// const express=require('express')
-// const app=express()
-// const stytch=require('stytch')
-// const cors=require('cors')
-// app.use(cors())
+import { Provider } from "react-redux";
+import { store } from "./store/Store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <ApiProvider api={booksApi}>
-      <App />
-    </ApiProvider>
+    <Provider store={store}>
+      <ApiProvider api={booksApi}>
+        <App />
+      </ApiProvider>
+    </Provider>
   </React.StrictMode>
 );
 

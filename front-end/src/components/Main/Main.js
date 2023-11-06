@@ -25,11 +25,11 @@ export default function Main() {
     setUpdate(true);
   };
 
-  console.log(data)
-
+  
   return (
     <div className="mainDiv">
       <div className="addBooks">
+        
         <Button variant="primary" onClick={addBookControl}>
           Add Books
           <PlusIcon width={21} height={21} style={{ marginLeft: "10px" }} />

@@ -1,14 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import BooksModal from "../../common/BooksModal/BooksModal";
 import Form from "react-bootstrap/Form";
 import "./style.css";
+import {
+  useAddBooksMutation,
+  useGetAllBooksQuery,
+} from "../../../features/api/apiSlice";
 
 export default function AddBooksModal({ show, setShow, update }) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [isbn, setIsbn] = useState("");
   const [year, setYear] = useState("");
+  const [qty, setQty] = useState("");
+  const [price, setPrice] = useState("");
+
+  const { isFetching } = useGetAllBooksQuery();
+  const [addBooks] = useAddBooksMutation();
+
+  const addBooksSubmit = async (event) => {
+    event.preventDefault();
+
+    const data = {
+      title: title,
+      author: author,
+      isbn: isbn,
+      year: year,
+      quantity: qty,
+      price: price,
+    };
+    await addBooks(data);
+  };
 
   return (
     <div>
@@ -17,7 +40,11 @@ export default function AddBooksModal({ show, setShow, update }) {
         setShow={setShow}
         title={!update ? "Add Books" : "Update Books"}
       >
-        <Form>
+        <Form
+          onSubmit={(event) => {
+            addBooksSubmit(event);
+          }}
+        >
           <Form.Group className="mb-3" controlId="Form.ControlInput1">
             <Form.Label>Book Name</Form.Label>
             <Form.Control
@@ -58,12 +85,32 @@ export default function AddBooksModal({ show, setShow, update }) {
               required
             />
           </Form.Group>
+          <Form.Group className="mb-3" controlId="Form.ControlInput2">
+            <Form.Label>Book Quantity</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="eg:- 50"
+              value={qty}
+              onChange={(e) => setQty(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="Form.ControlInput2">
+            <Form.Label>Book Price</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="eg:- 1000.00"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+            />
+          </Form.Group>
           <div className="addBookBtn">
             <Button variant="secondary" onClick={() => setShow(false)}>
               Close
             </Button>
-            <Button variant="primary" type="submit">
-              {!update?"Add":"Update"}
+            <Button variant="primary" type="submit" disabled={isFetching}>
+              {!update ? "Add" : "Update"}
             </Button>
           </div>
         </Form>
