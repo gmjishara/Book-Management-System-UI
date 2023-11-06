@@ -46,6 +46,10 @@ const booksApi = createApi({
           body,
         };
       },
+      invalidatesTags:(result,err,arg)=>{
+        return [{type:"data",id:arg.id}]
+      }
+
     }),
 
     deleteBooks: builder.mutation({
@@ -53,6 +57,9 @@ const booksApi = createApi({
         url: `Books/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags:(result,err,arg)=>{
+        return [{ type: "data", id: "LIST" }]
+      }
     }),
   }),
 });

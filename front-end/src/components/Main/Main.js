@@ -6,7 +6,7 @@ import { ReactComponent as PlusIcon } from "../../assets/icons/add.svg";
 import { ReactComponent as ViewIcon } from "../../assets/icons/eye.svg";
 import AddBooksModal from "../BooksModal/AddBooksModal/AddBooksModal";
 import ViewBooksModal from "../BooksModal/ViewBooksModal/ViewBooksModal";
-import { useGetAllBooksQuery } from "../../features/api/apiSlice";
+import { useDeleteBooksMutation, useGetAllBooksQuery } from "../../features/api/apiSlice";
 
 export default function Main() {
   const { data } = useGetAllBooksQuery("");
@@ -14,6 +14,8 @@ export default function Main() {
   const [showView, setShowView] = useState(false);
   const [update, setUpdate] = useState(false);
   const [item, setItem] = useState("");
+
+  const [deleteBooks]=useDeleteBooksMutation();
 
   const addBookControl = () => {
     setShowAdd(true);
@@ -71,7 +73,7 @@ export default function Main() {
                   </Button>
                 </td>
                 <td>
-                  <Button variant="danger">Delete</Button>
+                  <Button variant="danger" onClick={()=>{deleteBooks(item.id)}}>Delete</Button>
                 </td>
               </tr>
             ))}
