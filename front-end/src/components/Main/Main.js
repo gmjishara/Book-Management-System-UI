@@ -6,7 +6,10 @@ import { ReactComponent as PlusIcon } from "../../assets/icons/add.svg";
 import { ReactComponent as ViewIcon } from "../../assets/icons/eye.svg";
 import AddBooksModal from "../BooksModal/AddBooksModal/AddBooksModal";
 import ViewBooksModal from "../BooksModal/ViewBooksModal/ViewBooksModal";
-import { useDeleteBooksMutation, useGetAllBooksQuery } from "../../features/api/apiSlice";
+import {
+  useDeleteBooksMutation,
+  useGetAllBooksQuery,
+} from "../../features/api/apiSlice";
 
 export default function Main() {
   const { data } = useGetAllBooksQuery("");
@@ -15,23 +18,22 @@ export default function Main() {
   const [update, setUpdate] = useState(false);
   const [item, setItem] = useState("");
 
-  const [deleteBooks]=useDeleteBooksMutation();
+  const [deleteBooks] = useDeleteBooksMutation();
 
   const addBookControl = () => {
     setShowAdd(true);
     setUpdate(false);
   };
 
-  const updateBookControl = () => {
+  const updateBookControl = (item) => {
+    setItem(item);
     setShowAdd(true);
     setUpdate(true);
   };
 
-  
   return (
     <div className="mainDiv">
       <div className="addBooks">
-        
         <Button variant="primary" onClick={addBookControl}>
           Add Books
           <PlusIcon width={21} height={21} style={{ marginLeft: "10px" }} />
@@ -56,7 +58,7 @@ export default function Main() {
                 <td>{item.author}</td>
                 <td>{item.isbn}</td>
                 <td>{item.year}</td>
-               
+
                 <td>
                   <ViewIcon
                     width={25}
@@ -68,25 +70,47 @@ export default function Main() {
                   />
                 </td>
                 <td>
-                  <Button variant="success" onClick={updateBookControl}>
+                  <Button
+                    variant="success"
+                    onClick={() => {
+                      updateBookControl(item);
+                    }}
+                  >
                     Update
                   </Button>
                 </td>
                 <td>
-                  <Button variant="danger" onClick={()=>{deleteBooks(item.id)}}>Delete</Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      deleteBooks(item.id);
+                    }}
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
       </div>
-      <AddBooksModal show={showAdd} setShow={setShowAdd} update={update} />
-      <ViewBooksModal
-        show={showView}
-        setShow={setShowView}
-        update={update}
-        item={item}
-      />
+      {showAdd && (
+        <AddBooksModal
+          show={showAdd}
+          setShow={setShowAdd}
+          update={update}
+          item={item}
+        />
+      )}
+
+      {showView && (
+        <ViewBooksModal
+          show={showView}
+          setShow={setShowView}
+          update={update}
+          item={item}
+        />
+      )}
     </div>
   );
 }

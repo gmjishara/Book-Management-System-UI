@@ -21,9 +21,9 @@ const booksApi = createApi({
 
     getBookById: builder.query({
       query: (id) => `Books/${id}`,
-      providesTags:(result,err,arg)=>{
-        return [{type:"data",id:arg}]
-      }
+      providesTags: (result, err, arg) => {
+        return [{ type: "data", id: arg }];
+      },
     }),
 
     addBooks: builder.mutation({
@@ -32,24 +32,23 @@ const booksApi = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags:(result,err,arg)=>{
-        return [{ type: "data", id: "LIST" }]
-      }
+      invalidatesTags: (result, err, arg) => {
+        return [{ type: "data", id: "LIST" }];
+      },
     }),
 
     updateBooks: builder.mutation({
       query: (data) => {
-        const { id, ...body } = data;
+        const { id, body } = data;
         return {
           url: `Books/${id}`,
           method: "PUT",
           body,
         };
       },
-      invalidatesTags:(result,err,arg)=>{
-        return [{type:"data",id:arg.id}]
-      }
-
+      invalidatesTags: (result, err, arg) => {
+        return [{ type: "data", id: arg.id }];
+      },
     }),
 
     deleteBooks: builder.mutation({
@@ -57,9 +56,9 @@ const booksApi = createApi({
         url: `Books/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags:(result,err,arg)=>{
-        return [{ type: "data", id: "LIST" }]
-      }
+      invalidatesTags: (result, err, arg) => {
+        return [{ type: "data", id: "LIST" }];
+      },
     }),
   }),
 });

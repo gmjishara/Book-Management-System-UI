@@ -6,18 +6,20 @@ import "./style.css";
 import {
   useAddBooksMutation,
   useGetAllBooksQuery,
+  useUpdateBooksMutation,
 } from "../../../features/api/apiSlice";
 
-export default function AddBooksModal({ show, setShow, update }) {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [isbn, setIsbn] = useState("");
-  const [year, setYear] = useState("");
-  const [qty, setQty] = useState("");
-  const [price, setPrice] = useState("");
-
+export default function AddBooksModal({ show, setShow, update, item }) {
   const { isFetching } = useGetAllBooksQuery();
   const [addBooks] = useAddBooksMutation();
+  const [updateBooks] = useUpdateBooksMutation();
+
+  const [title, setTitle] = useState(update ? item.title : "");
+  const [author, setAuthor] = useState(update ? item.author : "");
+  const [isbn, setIsbn] = useState(update ? item.isbn : "");
+  const [year, setYear] = useState(update ? item.year : "");
+  const [qty, setQty] = useState(update ? item.quantity : "");
+  const [price, setPrice] = useState(update ? item.price : "");
 
   const addBooksSubmit = async (event) => {
     event.preventDefault();
@@ -30,7 +32,12 @@ export default function AddBooksModal({ show, setShow, update }) {
       quantity: qty,
       price: price,
     };
-    await addBooks(data);
+
+    if (update) {
+      await updateBooks({ id: item.id, body: data });
+    } else {
+      await addBooks(data);
+    }
   };
 
   return (
