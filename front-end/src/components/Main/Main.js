@@ -10,15 +10,16 @@ import {
   useDeleteBooksMutation,
   useGetAllBooksQuery,
 } from "../../features/api/apiSlice";
+import Swal from "sweetalert2";
 
 export default function Main() {
   const { data } = useGetAllBooksQuery("");
+  const [deleteBooks] = useDeleteBooksMutation();
+
   const [showAdd, setShowAdd] = useState(false);
   const [showView, setShowView] = useState(false);
   const [update, setUpdate] = useState(false);
   const [item, setItem] = useState("");
-
-  const [deleteBooks] = useDeleteBooksMutation();
 
   const addBookControl = () => {
     setShowAdd(true);
@@ -83,7 +84,27 @@ export default function Main() {
                   <Button
                     variant="danger"
                     onClick={() => {
-                      deleteBooks(item.id);
+                      Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, delete it!"
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          deleteBooks(item.id);
+                          Swal.fire({
+                            position: "top",
+                            title: "Deleted!",
+                            text: "Your book has been deleted.",
+                            icon: "success",
+                            timer: 1500,
+                          });
+                        }
+                      });
+                      
                     }}
                   >
                     Delete
